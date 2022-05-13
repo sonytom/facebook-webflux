@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Document(collection = "persons")
 @NoArgsConstructor
 @Accessors(chain = true)
+
 public class PersonsModel implements Serializable {
     private static final long serialVersionUID = 2612983025996993766L;
 
@@ -22,5 +23,6 @@ public class PersonsModel implements Serializable {
     @Indexed(unique = true)
     String id;
     String name;
+
 
 }

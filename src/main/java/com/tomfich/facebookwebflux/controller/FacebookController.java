@@ -1,6 +1,7 @@
 package com.tomfich.facebookwebflux.controller;
 
 import com.tomfich.facebookwebflux.domain.PostModel;
+import com.tomfich.facebookwebflux.dto.PostModelDto;
 import com.tomfich.facebookwebflux.service.FacebookService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,17 +19,17 @@ import reactor.core.publisher.Mono;
 @RestController
 public class FacebookController {
 
-    private  final FacebookService facebookService;
+    private final FacebookService facebookService;
 
 
-    @GetMapping(value = "/test", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/posts", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<PostModel> findAllPosts() {
         return facebookService.findBy();
     }
 
-    @PostMapping("/test1")
-    public Mono<PostModel> createPost(@RequestBody PostModel postModel) {
-        return facebookService.save(postModel);
+    @PostMapping("/post")
+    public Mono<PostModel> createPost(@RequestBody PostModelDto postModelDto) {
+        return facebookService.save(postModelDto);
     }
 
 }
