@@ -19,16 +19,35 @@ public class FacebookService {
 
     private final PostRepository postRepository;
 
-    public Flux<PostModel> findBy() {
+    public Mono<PostModel> save(PostModelDto postModelDto) {
+
+        return Mono.just(postModelDto)
+                //.switchIfEmpty(monoResponseStatusNotFoundException())
+                .onErrorResume(throwable -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Post Not Found")))
+                .map(MapperPost::mappterPostModel)
+                //  .map(postModel -> postRepository.findById(postModel.getPeopleId()))
+                // .onErrorReturn(monoResponseStatusNotFoundException())
+                //  .flatMap(Mono::from)
+                .map(postRepository::save)
+                .flatMap(Mono::from).log();
+    }
+
+
+    public Flux<PostModel> findAllPosts() {
         return postRepository.findBy();
     }
 
-    public Mono<PostModel> save(PostModelDto postModelDto) {
 
-        return Mono.just(MapperPost.mappterPostModel(postModelDto))
-                .switchIfEmpty(monoResponseStatusNotFoundException())
-                .map(postRepository::save)
-                .flatMap(Mono::from);
+    public Mono<PostModel> findById(String postID) {
+        return postRepository.findById(postID)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Anime not found")))
+                .log();
+
+    }
+
+    public Mono<Void> deletePost(String id) {
+        return postRepository.findById(id)
+                .flatMap(postRepository::delete).then();
     }
 
     public <T> Mono<T> monoResponseStatusNotFoundException() {
