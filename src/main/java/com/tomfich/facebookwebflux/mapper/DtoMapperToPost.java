@@ -10,22 +10,18 @@ import java.time.ZoneId;
 import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class MapperPost {
+public class DtoMapperToPost {
 
-
-    public static PostModel mappterPostModel(PostModelDto postModelDto) {
-
+    public static PostModel dtoMappterToPostModel(PostModelDto postModelDto) {
         LocalDateTime timeNow = LocalDateTime.now(ZoneId.of("UTC"));
-
         return Optional.ofNullable(postModelDto)
                 .map(dtoModel -> PostModel.builder()
                         .peopleId(dtoModel.getPeopleId())
-                        .item(dtoModel.getItem())
+                        .itemType(dtoModel.getItemType())
                         .likes(dtoModel.getLikes())
                         .body(dtoModel.getBody())
                         .dateOncreatePost(timeNow)
                         .build())
                 .orElse(null);
     }
-
 }

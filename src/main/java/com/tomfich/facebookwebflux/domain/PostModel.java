@@ -16,22 +16,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-//@Accessors(chain = true)
 public class PostModel implements Serializable {
-
     private static final long serialVersionUID = 2612983025996993766L;
-
 
     @Id
     @Indexed(unique = true)
     String id;
-
-    @Indexed(unique = true)
     String peopleId;
-    Boolean item;
+    String itemType;
     Integer likes;
     String body;
-
-
     LocalDateTime dateOncreatePost;
 }
