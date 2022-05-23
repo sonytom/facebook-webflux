@@ -24,45 +24,16 @@ public class FacebookService {
 
     public Mono<PostModel> save(PostModelDto postModelDto) {
 
-<<<<<<< HEAD
-        // post repository
-        return Mono.just(postModelDto)
-=======
+
         // verificar no banco se está com unique
         return Mono.just(postModelDto)
                 .onErrorResume(throwable -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Post Not Found")))
-                .map(MapperPost::mappterPostModel)
-                .map(postRepository::save)
-                .flatMap(postModelMono -> postModelMono.onErrorResume((Throwable e) -> {
-                    log.error(e.getMessage());
-                    return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage()));
-                }));
-
-
-        /* return Mono.just(postModelDto)
-                //.switchIfEmpty(monoResponseStatusNotFoundException())
->>>>>>> main
-                .onErrorResume(throwable -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Post Not Found")))
                 .map(DtoMapperToPost::dtoMappterToPostModel)
                 .map(postRepository::save)
-<<<<<<< HEAD
                 .flatMap(postModelMono -> postModelMono.onErrorResume((Throwable e) -> {
                     log.error(e.getMessage());
                     return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage()));
                 }));
-=======
-                .flatMap(teste -> teste.onErrorResume((Throwable e) -> {
-                    log.error(e.getMessage());
-                   // return Mono.just(PostModel.builder().build());
-                return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, "deu ruim"));
-                }));
-                //.flatMap(Mono::from)
-               // .onErrorResume((Throwable e) -> {
-                //    log.error(e.getMessage());
-                 //   return Mono.just(PostModel.builder().build());}).log();
-              //  .flatMap(Mono::from).log();*/
->>>>>>> main
-
     }
 
 

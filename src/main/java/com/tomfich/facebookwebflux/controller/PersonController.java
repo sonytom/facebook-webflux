@@ -32,8 +32,5 @@ public class PersonController {
     }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 }

@@ -18,11 +18,8 @@ import reactor.test.StepVerifier;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 class UserPostIntegrationTest {
-
 
     private static MockWebServer server;
     private UserPostIntegration userPostIntegration;
@@ -34,7 +31,6 @@ class UserPostIntegrationTest {
         server = new MockWebServer();
         server.start();
     }
-
 
     @AfterAll
     static void shutdownServer() throws IOException {
@@ -51,8 +47,6 @@ class UserPostIntegrationTest {
         objectMapper = new ObjectMapper();
         userPostIntegration = new UserPostIntegration(webClient);
     }
-
-
 
     @Test
     void findUser() throws JsonProcessingException {
