@@ -2,7 +2,10 @@ package com.tomfich.facebookwebflux.service;
 
 import com.tomfich.facebookwebflux.domain.PostModel;
 import com.tomfich.facebookwebflux.dto.PostModelDto;
+<<<<<<< HEAD
 import com.tomfich.facebookwebflux.integration.UserPostIntegration;
+=======
+>>>>>>> main
 import com.tomfich.facebookwebflux.mapper.DtoMapperToPost;
 import com.tomfich.facebookwebflux.repository.PersonRepository;
 import com.tomfich.facebookwebflux.repository.PostRepository;
@@ -27,8 +30,11 @@ public class PostService {
     private final PostRepository postRepository;
     private final PersonRepository personsModelRepository;
 
+<<<<<<< HEAD
     private final UserPostIntegration userPostIntegration;
 
+=======
+>>>>>>> main
     public Mono<PostModel> save(PostModelDto postModelDto) {
         return Mono.just(postModelDto)
                 .onErrorResume(throwable -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Post Not Found")))
@@ -56,6 +62,7 @@ public class PostService {
                 .flatMap(postRepository::delete).then();
     }
 
+<<<<<<< HEAD
   //  public Mono<List<PostModel>> findByIdWithName(String id) {
   //      return personsModelRepository.findById(id)
   //              .zipWhen(persons -> getPostRepository()
@@ -76,4 +83,15 @@ public class PostService {
      }
 
 
+=======
+    public Mono<List<PostModel>> findByIdWithName(String id) {
+        return getPersonsModelRepository()
+                .findById(id)
+                .zipWhen(persons -> getPostRepository()
+                        .findByPeopleId(persons.getId())
+                        .collectList())
+                .map(tuple -> tuple.getT2().stream().toList())
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Post or Person not found")));
+    }
+>>>>>>> main
 }

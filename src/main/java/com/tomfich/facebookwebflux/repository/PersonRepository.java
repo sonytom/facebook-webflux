@@ -8,5 +8,11 @@ import reactor.core.publisher.Flux;
 
 @Repository
 public interface PersonRepository extends ReactiveMongoRepository<PersonsModel, String> {
+<<<<<<< HEAD
     Flux<PersonsModel> findBy();
+=======
+
+    @Tailable
+    Flux<PersonsModel> findBy() ;
+>>>>>>> main
 }
