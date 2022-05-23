@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostModelDto {
 
-    @NotBlank
-    @NotNull
+
     String peopleId;
 
     @NotNull
-    Boolean item;
+    String itemType;
     @NotNull
     Integer likes;
 
